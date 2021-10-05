@@ -1,10 +1,10 @@
 import discord
-from discord.ext import commands
+from discord.ext import commands, tasks
 from discord.utils import get
 import os
 import random
 import asyncio
-from StayinAlive import keepAlive
+#from StayinAlive import keepAlive
 
 
 Token = os.environ['Token']
@@ -12,6 +12,7 @@ description = "A small cute bot mostly built by AGrapplerNamedSam. VERY, VERY WI
 intents = discord.Intents.default()
 intents.members = True
 bot = commands.Bot(command_prefix='?', description=description, intents=intents)
+bot.POSTREQUEST = "False"
 
 
 @bot.event
@@ -20,6 +21,22 @@ async def on_ready():
 	print(bot.user.name)
 	print("Bot ID: " + str(bot.user.id))
 	print('------')
+#	MusicBotCheck.start()
+
+
+#THIS BLOODY THING TOOK SO MUCH WORK, FOR MORE THAN IT HAD ANY RIGHT
+#THE RASPBERRY PI WAS FIGHTING ME JUST AS MUCH AS THE CODE
+'''@tasks.loop(seconds=60.0)
+async def MusicBotCheck():
+	if bot.POSTREQUEST == "True":
+		print("DEBUG:\nMusicBotIsUp (message from Raspberry Pi on daily morning reboot): POST Request Received")
+		BotSpam = bot.get_channel(889642289599754292)
+		print(BotSpam)
+		await BotSpam.send("Raspberry Pi has been restarted.")
+		bot.POSTREQUEST = "False"
+		return bot.POSTREQUEST
+	if bot.POSTREQUEST == 'False':
+		return	'''
 
 
 @bot.command(pass_context=True)
@@ -28,21 +45,14 @@ async def confirm(ctx):
 	await ctx.author.add_roles(role, ctx.author)
 
 
-#THIS IS COMMENTED OUT, THIS WILL NOT RUN EVEN IF A USER CALLS THE COMMAND (RUNS THE COMMAND)
+#THIS IS COMMENTED OUT, THIS WILL NOT RUN EVEN IF A USER CALLS THE COMMAND 
+#(RUNS THE COMMAND). IT IS LEFT IN JUST IN CASE OF GREAT NEED. A NUCLEAR
+#OPTION, ONE MIGHT SAY ;)
 '''@bot.command()
 async def beannoying(ctx):
   await ctx.send('@everyone')
 '''
 
-
-#EASTER EGGS BELOW, PLEASE DO NOT READ
-#IF YOU ARE EXAMINING HOW THE BOT WORKS,
-#READ THE LAST THREE LINES AND NOTHING
-#ELSE. THE LAST THREE SHOW THE EXAMPLE 
-#EGG AND THE COMMAND THAT ALLOWS COMMANDS
-#TO KEEP WORKING
-#
-# Start of the easter eggs
 @bot.event
 async def on_message(message):
 	if message.author == bot.user:
@@ -50,27 +60,6 @@ async def on_message(message):
 	message.content = message.content.lower()
 	if "sophie" in message.content:
 		await message.channel.send("Wow, that Sophie person sounds like such a cutie!")
-#	if "samko" in message.content:
-#		await message.channel.send("You mean Smako/Smegma?")
-#	if "69" in message.content:
-#		await message.channel.send("Nice.")
-	if "dan" in message.content:
-		await message.channel.send("What a chad!")
-#	if "john" in message.content:
-#		await message.channel.send("By John do you mean i-granddaddy?")
-	if "halo reach" in message.content:
-		await message.channel.send("I wasn't paying attention, did someone mention the best Halo?")
-	
-	
-	if "example123456" in message.content:
-		await message.channel.send("Example easter egg!")
-	await bot.process_commands(message)
-#
-#
-#
-#
-# End of the easter eggs
-
 
 
 bot.Toggle = True
@@ -99,7 +88,7 @@ async def bonksetting(ctx):
 	elif bot.Toggle == False:
 		await ctx.send("Bonk commands are turned off.")
 	else:
-		await ctx.send("ERROR @AGrapplerNamedSam#5801, bonksetting has failed. Somehow")
+		await ctx.send("ERROR @AGrapplerNamedSam#5801, bonksetting has failed. Somehow?!")
 
 
 @bot.command(aliases=["fb"])
@@ -194,6 +183,76 @@ async def joinedall(ctx):
 	for member in ctx.guild.members:
 		await ctx.send('{0.name} joined in {0.joined_at}'.format(member))
 
+
+'''
+Below is the code for the Flask webserver that keeps the bot alive. It was originally 
+in a seperate, neater file, however I also run a music bot locally on a raspberry pi 
+with scheduled daily reboots, and I want CutieBot to notify me whenever a reboot 
+happens (so I can know everything is going okay with it). Therefore, for the time being 
+I have moved the flask server here so that it is much easier for the variables and 
+requests to interact between the webserver and the Discord functions. I will leave the 
+original web server file for a more lightweight and basic solution if someone wants it, 
+however without any change the code below will be what runs the web server.
+'''
+'''
+from flask import Flask, request, render_template
+#import aiohttp
+#from aiohttp import web
+from threading import Thread
+
+Need to migrate from requests to aiohttp sometime, just very difficult, POST is
+much more complicated. Reason for migration is that request is a blocker, it pauses the bot and does not let anything else run, even if the bot is given a command. 
+Asynchronous functions (async def MyFunctino(args)) are what allows commands to be
+queued with multiples at a time, hence why they are used and called over normal 
+functions.
+
+
+app = Flask("CutieBot")
+
+	template_folder = 'HTML',
+	static_folder='static'
+	)
+
+@app.route('/')
+def home():
+	return "The web server is live"
+	#return render_template('index.html')
+
+@app.route('/',methods=['POST'])
+def RaspberryPi():
+	if request.method == 'POST':
+		bot.POSTREQUEST = "True"
+		return bot.POSTREQUEST
+
+def run():
+	app.run(host='0.0.0.0',port=8080)
+
+#As the name suggests, this great function is the lifeblood of keeping the bot running 
+#even while all browsers are closed.
+def keepAlive():
+	t = Thread(target=run)
+	t.start()
+'''
+
+
+
+
+
+from flask import Flask
+from threading import Thread
+
+app = Flask('CutieBot')
+
+@app.route('/')
+def home():
+	return "The web server is live and the bot is running."
+
+def run():
+	app.run(host='0.0.0.0',port=8080)
+
+def keepAlive():
+	t = Thread(target=run)
+	t.start()
 
 
 keepAlive()
