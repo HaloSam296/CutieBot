@@ -29,8 +29,8 @@ async def leave(ctx):
 
 
 @commands.command(aliases=['smv'])
-async def schmoove(ctx, ChannelID, *args: discord.Member):
-	Destination = discord.utils.get(ctx.guild.channels, id = int(ChannelID))
+async def schmoove(ctx, ChannelName, *args: discord.Member):
+	Destination = discord.utils.get(ctx.guild.channels, name = ChannelName)
 	for user in args:
 		await user.move_to(Destination)
 		await ctx.send(str(user)+" has been sent to: " + str(Destination))

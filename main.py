@@ -26,7 +26,7 @@ async def on_ready():
   print('Logged in as')
   print(bot.user.name)
   print("Bot ID: " + str(bot.user.id))
-  print("\nTo-Do:\nMake log system\nComplete organization rework\nKeep bot cute")
+  print("\nTo-Do:\nMake log system\nKeep bot cute")
   print('------')
   await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name='HSAM BECOMING MOD 2022!')) 
 #	MusicBotCheck.start()
@@ -66,7 +66,7 @@ async def help(ctx):
 	Emb.add_field(name='?lazydj [VC ID (look at music command pins)]', value="(ldj) I'm a lazy DJ. This automatically queues up my playlist and then shuffles it. (Currently CutieBot must join a VC to summon and queue the bot. I am in the process of trying to figure out a workaround, please excuse how annoying this can be for now. I'm also trying to make it easier to use than the channel IDs, because that is not user friendly at all lol)", inline=True)
 	Emb.add_field(name='?join',value="(j) Joins the voice channel of whoever sent the command. NOTE: CutieBot CANNOT play any sound, this and the leave command are here for the commands that work with the music bot.",inline=True)
 	Emb.add_field(name='?leave',value="(l) Leaves the current voice channel CutieBot is in. NOTE: CutieBot CANNOT play any sound, this and the join command are here for the commands that work with the music bot.",inline=True)
-	Emb.add_field(name="?schmoove '[Channel ID Here]' @[example] @[example] . . .",value="(smv) Moves a person or people into a different voice channel. The VC must be spelt accurately and must be in ''s"+' or ""s. Then ping the people you want to be moved. Do not use any commas, only spaces between the channel name and each person. NOTE: A list of the channel IDs can be found both in bot spam and music commands. I am trynig to figure out a way to allow the use of channel names instead of IDs, but it is proving difficult.',inline=True)
+	Emb.add_field(name="?schmoove '[Channel ID Here]' @[example] @[example] . . .",value="(smv) Moves a person or people into a different voice channel. The VC must be spelt accurately and must be in ''s"+' or ""s. Then ping the people you want to be moved. Do not use any commas, only spaces between the channel name and each person.',inline=True)
 	Emb.set_footer(text='More commands can be added upon request!')
 	await ctx.send(embed = Emb)
 
