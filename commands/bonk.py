@@ -1,7 +1,6 @@
-import discord
+import discord, asyncio
 from discord.ext import commands
 from discord.utils import get
-import asyncio
 
 
 description = "A small cute bot built by AGrapplerNamedSam."
@@ -122,3 +121,8 @@ async def bonkhelp(ctx):
 	Emb.add_field(name='?ultimatefullbonk', value="(ufb)\n :).", inline=True)
 	Emb.add_field(name='?ultimatequickbonk', value="(uqb)\n :).", inline=True)
 	await ctx.send(embed = Emb)
+
+
+
+
+	#https://replit.com/@HaloSam296/pythonproblems#main.py

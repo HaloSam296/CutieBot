@@ -1,7 +1,6 @@
-import discord
+import discord, asyncio
 from discord.ext import commands
 from discord.utils import get
-import asyncio
 
 
 description = "A small cute bot built by AGrapplerNamedSam."
