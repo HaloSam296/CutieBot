@@ -16,6 +16,7 @@ bot.load_extension("bonk")
 bot.load_extension("misc")
 bot.load_extension("nick")
 bot.load_extension("voice")
+bot.load_extension("schedule")
 bot.help_command = NewHelp()
 
  

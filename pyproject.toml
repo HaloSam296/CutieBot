@@ -9,6 +9,7 @@ python = "^3.8"
 discord = "^1.7.3"
 Flask = "^2.0.1"
 django-aliases = "^0.1"
+python-dateutil = "^2.8.2"
 
 [tool.poetry.dev-dependencies]
 
