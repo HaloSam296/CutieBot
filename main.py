@@ -1,8 +1,6 @@
-import discord, os
+import discord, os, sys, logging
 from discord.ext import commands#, tasks
-import logging
 logging.basicConfig(level=logging.INFO)
-import sys
 sys.path.insert(0, 'commands/')
 from webserver import stayinAlive#, POSTREQUEST
 from misc import NewHelp
@@ -28,9 +26,9 @@ async def on_ready():
   print("\nTo-Do:\nMake log system\nKeep bot cute")
   print('------')
   await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name='HSAM BECOMING MOD 2022!')) 
+	
+
 '''	MusicBotCheck.start()
-
-
 bot.POSTREQUEST = "False"
 @tasks.loop(seconds=5.0)
 async def MusicBotCheck():
@@ -49,6 +47,9 @@ async def MusicBotCheck():
 async def on_message(message):
 	await bot.process_commands(message)
 
+
+
+	
 
 stayinAlive()
 Token = os.environ['Token']

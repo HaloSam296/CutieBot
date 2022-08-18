@@ -19,6 +19,7 @@ def setup(bot):
 	bot.add_command(joined)
 	bot.add_command(joinedall)
 	bot.add_command(aperandom)
+	bot.add_command(shutdown)
 	
 
 
@@ -32,7 +33,12 @@ async def confirm(ctx):
 	await ctx.author.add_roles(role, ctx.author)
 	print(str(ctx.author)+" has been given the n00b role.\n")
 
-  
+
+@commands.command(aliases=['exit'])
+async def shutdown(ctx):
+	await ctx.bot.logout()
+	
+
 @commands.command(aliases=['f'])
 async def filth(ctx, idiot):
 	await ctx.send("To hell with you, " + str(idiot) +" for that post you inferior twat. \nhttps://youtu.be/o048xeNQ3Wo") 
@@ -92,22 +98,26 @@ async def aperandom(ctx):
 
 
 class NewHelp(commands.MinimalHelpCommand):
-    async def send_pages(self):
-        destination = self.get_destination()
-        for page in self.paginator.pages:
-          Emb = discord.Embed(title='Help Menu',description='The Help Menu. Ask AGrapplerNamedSam or a mod for more help.')
-          Emb.add_field(name='?roll [NdN]', value='Rolls a set of dice.', inline = True)
-          Emb.add_field(name='?choose [arg1, arg2, ...]', value='Randomly chooses between a set of options.', inline =True)
-          Emb.add_field(name='?coinflip', value='Do I really need to explain this one?', inline = True)
-          Emb.add_field(name='?joined [@user#0000]', value='Displays when a user has joined the server.', inline = True)
-          Emb.add_field(name='?bonkhelp', value = '(bh) Displays the help menu showing all bonk commands.', inline=True)
-          #Emb.add_field(name='?playlisthelp',value='(plh) Displays the help menu showing all avaailable playlists. (Yes, ph was the original shortcut. Yes, I very quickly changed that.)', inline=True)
-          Emb.add_field(name='?joinedall', value="Lists when every member (bots included) joined the server. Exports a LOT of text, do NOT use to spam and do NOT use outside #bot-spam!")
-          Emb.add_field(name='?filth [@example]', value="(f) Sends a very appropriate response to whoever is pinged.", inline=True)
-          Emb.add_field(name='?lazydj [VC ID (look at music command pins)]', value="(ldj) I'm a lazy DJ. This automatically queues up my playlist and then shuffles it. (Currently CutieBot must join a VC to summon and queue the bot. I am in the process of trying to figure out a workaround, please excuse how annoying this can be for now. I'm also trying to make it easier to use than the channel IDs, because that is not user friendly at all lol)", inline=True)
-          Emb.add_field(name='?join',value="(j) Joins the voice channel of whoever sent the command. NOTE: CutieBot CANNOT play any sound, this and the leave command are here for the commands that work with the music bot.",inline=True)
-          Emb.add_field(name='?leave',value="(l) Leaves the current voice channel CutieBot is in. NOTE: CutieBot CANNOT play any sound, this and the join command are here for the commands that work with the music bot.",inline=True)
-          Emb.add_field(name="?schmoove '[Channel ID Here]' @[example] @[example] . . .",value="(smv) Moves a person or people into a different voice channel. The VC must be spelt accurately and must be in ''s"+' or ""s. Then ping the people you want to be moved. Do not use any commas, only spaces between the channel name and each person. NOTE: A list of the channel IDs can be found both in bot spam and music commands. I am trynig to figure out a way to allow the use of channel names instead of IDs, but it is proving difficult.',inline=True)
-          Emb.set_footer(text='More commands can be added upon request!')
-          await destination.send(embed = Emb)
+	async def send_pages(self):
+		destination = self.get_destination()
+		for page in self.paginator.pages:
+			Emb = discord.Embed(title='Help Menu',description='The Help Menu. Ask AGrapplerNamedSam or a mod for more help.')
+			Emb.add_field(name='?roll [NdN]', value='Rolls a set of dice.', inline = False)
+			Emb.add_field(name='?choose [arg1, arg2, ...]', value='Randomly chooses between a set of options.', inline=False)
+			Emb.add_field(name='?coinflip', value='Do I really need to explain this one?', inline = False)
+			Emb.add_field(name='?joined [@user#0000]', value='Displays when a user has joined the server.', inline=False)
+			Emb.add_field(name='?bonkhelp', value = '(bh) Displays the help menu showing all bonk commands.', inline=False)
+			#Emb.add_field(name='?playlisthelp',value='(plh) Displays the help menu showing all avaailable playlists. (Yes, ph was the original shortcut. Yes, I very quickly changed that.)', inline=False)
+			Emb.add_field(name='?joinedall', value="Lists when every member (bots included) joined the server. Exports a LOT of text, do NOT use to spam and do NOT use outside #bot-spam!", inline=False)
+			Emb.add_field(name='?filth [@example]', value="(f) Sends a very appropriate response to whoever is pinged.", inline=False)
+			Emb.add_field(name='?lazydj [VC ID (look at music command pins)]', value="(ldj) I'm a lazy DJ. This automatically queues up my playlist and then shuffles it. (Currently CutieBot must join a VC to summon and queue the bot. I am in the process of trying to figure out a workaround, please excuse how annoying this can be for now. I'm also trying to make it easier to use than the channel IDs, because that is not user friendly at all lol)", inline=False)
+			Emb.add_field(name='?join',value="(j) Joins the voice channel of whoever sent the command. NOTE: CutieBot CANNOT play any sound, this and the leave command are here for the commands that work with the music bot.",inline=False)
+			Emb.add_field(name='?leave',value="(l) Leaves the current voice channel CutieBot is in. NOTE: CutieBot CANNOT play any sound, this and the join command are here for the commands that work with the music bot.",inline=False)
+			Emb.add_field(name="?schmoove '[Channel ID Here]' @[example] @[example] . . .",value="(smv) Moves a person or people into a different voice channel. The VC must be spelt accurately and must be in ''s"+' or ""s. Then ping the people you want to be moved. Do not use any commas, only spaces between the channel name and each person. NOTE: A list of the channel IDs can be found both in bot spam and music commands. I am trynig to figure out a way to allow the use of channel names instead of IDs, but it is proving difficult.',inline=False)
+			Emb.add_field(name='?showschedule',value='(ss) Shows the weekly schedule.',inline=False)
+			Emb.add_field(name='?addschedule [day, time, item]', value='(as) Adds to the weekly schedule.', inline=False)
+
+			Emb.add_field(name='?removeschedule [day, item]',value='(rs) THIS IS CASE SENSITIVE FOR THE ITEM!!!! Make sure you surround the entire item in quotes. Example command: `?rs Monday "6:00pm - Game Session"`',inline=False)
+			Emb.set_footer(text='\n\nMore commands can be added upon request!')
+		await destination.send(embed = Emb)
 bot.help_command = NewHelp()
