@@ -117,17 +117,5 @@ async def removeschedule(ctx, day, item):
 	                output.write(line)
 	#replace old file with updated file
 	os.replace('commands/weekly schedule/temp.txt', 'commands/weekly schedule/'+Day)
-	
-
-
-
-		#Code from StackOverflow: https://stackoverflow.com/questions/4710067/how-to-delete-a-specific-line-in-a-file
-	# with open('commands/weekly schedule/'+Day, "r+") as SF:
-	# 	d = SF.readlines()
-	# 	SF.seek(0)
-	# 	for i in d:
-	# 		if i != item:
-	# 			SF.write(i)
-	# 	SF.truncate()
-	# await ctx.send("Process complete, it is recommended to check the schedule to confirm removal.")
+	await ctx.send("Process complete, it is recommended to check the schedule to confirm removal.")
 	

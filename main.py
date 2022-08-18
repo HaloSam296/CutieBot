@@ -1,9 +1,9 @@
-import discord, os, sys, logging
-from discord.ext import commands#, tasks
-logging.basicConfig(level=logging.INFO)
-sys.path.insert(0, 'commands/')
-from webserver import stayinAlive#, POSTREQUEST
-from misc import NewHelp
+# import discord, os, sys, logging
+# from discord.ext import commands#, tasks
+# logging.basicConfig(level=logging.INFO)
+# sys.path.insert(0, 'commands/')
+# from webserver import stayinAlive#, POSTREQUEST
+# from misc import NewHelp
 
 description = "A small cute bot built by AGrapplerNamedSam."
 intents = discord.Intents.default()
